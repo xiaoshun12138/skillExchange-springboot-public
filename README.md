@@ -85,8 +85,8 @@ CREATE DATABASE skill_exchange DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uni
 ### 2. 数据库配置
 ```yaml
 url: jdbc:mysql://localhost:3306/skill_exchange
-username: root
-password: helloworld1024
+username: [your_db_user]
+password: [your_db_password]
 ```
 
 ### 3. JWT 配置
