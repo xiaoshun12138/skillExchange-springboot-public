@@ -1,0 +1,71 @@
+server:
+  port: 8080                                    # 服务端口号
+  servlet:
+    encoding:
+      charset: UTF-8                            # 解决中文乱码
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: skill-exchange
+  # ---------- MySQL数据库连接配置 ----------
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/skill_exchange?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username:
+    password:
+  # ---------- Jackson日期格式化配置 ----------
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss            # 日期格式化
+    time-zone: Asia/Shanghai
+  # ---------- Redis配置 ----------
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # 时区设置
+
+# ---------- MyBatis-Plus配置 ----------
+mybatis-plus:
+  # Mapper XML文件路径（如果需要自定义SQL）
+  mapper-locations: classpath:mapper/**/*.xml
+  # 实体类扫描路径
+  type-aliases-package: com.example.skillexchange.entity
+  configuration:
+    # 开启驼峰命名转换：数据库下划线字段 → Java驼峰属性
+    map-underscore-to-camel-case: true
+    # 日志输出（开发阶段开启，上线后改为warn）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 主键生成策略：自增
+      id-type: auto
+      # 逻辑删除配置（本项目暂不使用逻辑删除，使用status字段控制）
+      logic-delete-field: status
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+
+# ---------- 微信小程序配置 ----------
+wx:
+  miniapp:
+    appid:                                  # 微信小程序AppID，请在此处填写
+    secret:                        # 微信小程序AppSecret，请在此处填写
+
+# ---------- JWT令牌配置 ----------
+jwt:
+  secret: skill-exchange-yuhuatai-2024-secret-key-must-be-at-least-256-bits-long  # JWT密钥，至少256位
+  expiration: 604800000                         # token过期时间：7天（单位毫秒）
+
+# ---------- 日志配置 ----------
+logging:
+  level:
+    com.example.skillexchange: debug             # 项目包日志级别
+    com.example.skillexchange.mapper: debug      # SQL日志级别
+
+# ---------- 文件上传配置 ----------
+file:
+  upload:
+    path: ./uploads/                              # 图片上传存储路径（本地目录）
+    prefix: http://localhost:8080/uploads/        # 图片访问URL前缀
